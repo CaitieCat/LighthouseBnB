@@ -138,6 +138,15 @@ const getAllProperties = function(options, limit = 10) {
  LIMIT $${queryParams.length};
  `;
 
+ if (options.minimum_price_per_night && options.maximum_price_per_night) {
+  queryParams.push(`%${options.minimum_price_per_night}%`);
+  queryParams.push(`%${options.maximum_price_per_night}%`);
+  queryString += `WHERE city > $1 AND < $2 `;
+} else if (options.minimum_price_per_night && !options.maximum_price_per_night){
+  queryParams.push(`%${options.minimum_price_per_night}%`);
+  queryString += `WHERE city > $1`;
+}
+
  // 5
  console.log(queryString, queryParams);
 
