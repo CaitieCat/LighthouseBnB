@@ -1,7 +1,17 @@
 const bcrypt = require('bcrypt');
 
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  user: 'caitie',
+  password: '123',
+  host: 'localhost',
+  database: 'lighthouse_bnb'
+});
+
 module.exports = function(router, database) {
 
+  
   // Create a new user
   router.post('/', (req, res) => {
     const user = req.body;
